@@ -94,3 +94,9 @@ const result = await atomicQuery('CPO price Indonesia');
 // For Ψ-EMA
 const psiEma = await getPsiEMA('AAPL');
 ```
+
+## Browser (Brave)
+- Gmail: https://mail.google.com/mail/u/0/#inbox
+- Calendar: https://calendar.google.com/calendar/u/0/r
+- Account: johnjames@alumni.usc.edu
+- Status: Logged in, accessible
