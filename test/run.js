@@ -36,6 +36,7 @@ const {
   applyPersonality,
   containsDangerousPattern,
   getPrivilegedIds,
+  formatPsiEMA,
   DANGEROUS_PATTERNS
 } = require('../lib/void-pipeline');
 
@@ -190,6 +191,70 @@ test('does not double nyan~', () => {
 test('strips flattery', () => {
   const result = applyPersonality('Great question! Here is the answer');
   assert.ok(!result.startsWith('Great question'));
+});
+
+// formatPsiEMA
+console.log('\n  formatPsiEMA:');
+test('formats stock data with daily reading', () => {
+  const data = {
+    ticker: 'AAPL',
+    shortName: 'Apple Inc.',
+    sector: 'Technology',
+    currentPrice: 185.50,
+    trailingPE: 28.4,
+    psi_ema_daily: { theta: 15, z: 1.5, r: 2.0 }
+  };
+  const result = formatPsiEMA(data);
+  assert.ok(result.includes('Apple Inc.'));
+  assert.ok(result.includes('AAPL'));
+  assert.ok(result.includes('185.50'));
+  assert.ok(result.includes('Strong Bull') || result.includes('STRONG BULL'));
+});
+
+test('detects FALSE POSITIVE reading', () => {
+  const data = {
+    ticker: 'XYZ',
+    currentPrice: 50,
+    psi_ema_daily: { theta: -5, z: 0.8, r: 2.0 }
+  };
+  const result = formatPsiEMA(data);
+  assert.ok(result.includes('False Positive') || result.includes('FALSE POSITIVE'));
+});
+
+test('detects BREATHING reading', () => {
+  const data = {
+    ticker: 'ABC',
+    currentPrice: 100,
+    psi_ema_daily: { theta: 3, z: 0.5, r: 1.0 }
+  };
+  const result = formatPsiEMA(data);
+  assert.ok(result.includes('Breathing') || result.includes('BREATHING'));
+});
+
+test('detects NEUTRAL reading', () => {
+  const data = {
+    ticker: 'DEF',
+    currentPrice: 75,
+    psi_ema_daily: { theta: 2, z: 0.3, r: 0.3 }
+  };
+  const result = formatPsiEMA(data);
+  assert.ok(result.includes('NEUTRAL'));
+});
+
+test('handles null input', () => {
+  const result = formatPsiEMA(null);
+  assert.ok(result.includes('no data'));
+});
+
+test('includes weekly data when present', () => {
+  const data = {
+    ticker: 'TSLA',
+    currentPrice: 200,
+    psi_ema_daily: { theta: 10, z: 2.0, r: 2.5 },
+    psi_ema_weekly: { theta: 8, z: 1.8, r: 2.2 }
+  };
+  const result = formatPsiEMA(data);
+  assert.ok(result.includes('Weekly'));
 });
 
 // ═══════════════════════════════════════════
