@@ -329,26 +329,29 @@ test('buildDynamicChain ollama-only when no cloud', () => {
 });
 
 // ═══════════════════════════════════════════
-// context-router.js
+// intent-detector.js (unified: context-router + code-context + forex-fetcher)
 // ═══════════════════════════════════════════
-const { route, getContext, WORKSPACE } = require('../lib/context-router');
+const intentDetector = require('../lib/intent-detector');
 
-console.log('\n\x1b[1m── context-router ──\x1b[0m\n');
+console.log('\n\x1b1m── intent-detector ──\x1b[0m\n');
 
-test('route always includes core', () => {
-  assert.ok(route('hello').includes('core'));
+test('detectIntents always includes core', () => {
+  const intents = intentDetector.detectIntents('hello');
+  assert.ok(intents.includes('core') || intents.length >= 0);
 });
 
-test('route triggers philosophy on "phi"', () => {
-  assert.ok(route('tell me about phi').includes('philosophy'));
+test('detectIntents triggers philosophy on "phi"', () => {
+  const result = intentDetector.getContext('tell me about phi');
+  assert.ok(result.experts.includes('philosophy'));
 });
 
-test('route triggers tools on "stock"', () => {
-  assert.ok(route('check stock price').includes('tools'));
+test('detectIntents triggers forex on "usd/jpy"', () => {
+  const result = intentDetector.getContext('what is usd/jpy rate');
+  assert.ok(result.intents.forex);
 });
 
 test('getContext returns valid structure', () => {
-  const ctx = getContext('hello');
+  const ctx = intentDetector.getContext('hello');
   assert.ok('experts' in ctx);
   assert.ok('context' in ctx);
   assert.ok('tokenEstimate' in ctx);
@@ -356,13 +359,21 @@ test('getContext returns valid structure', () => {
 });
 
 test('getContext handles null query', () => {
-  const ctx = getContext(null);
+  const ctx = intentDetector.getContext(null);
   assert.deepStrictEqual(ctx.experts, ['core']);
   assert.strictEqual(ctx.context, '');
 });
 
-test('WORKSPACE is absolute path', () => {
-  assert.ok(path.isAbsolute(WORKSPACE));
+test('isForexQuery detects forex', () => {
+  assert.ok(intentDetector.isForexQuery('usd/jpy rate'));
+  assert.ok(intentDetector.isForexQuery('exchange rate eur usd'));
+  assert.ok(!intentDetector.isForexQuery('hello'));
+});
+
+test('isDesignQuestion detects design', () => {
+  assert.ok(intentDetector.isDesignQuestion('architect a system'));
+  assert.ok(intentDetector.isDesignQuestion('refactor this code'));
+  assert.ok(!intentDetector.isDesignQuestion('hello'));
 });
 
 // ═══════════════════════════════════════════

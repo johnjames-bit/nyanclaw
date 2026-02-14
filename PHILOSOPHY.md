@@ -50,7 +50,9 @@ A ↔ 1 ↔ 1/A ↔ I_n
 
 **Ship example:**
 - Gen 1: Original wood, original spirit
-- Gen 2: Some old parts (inherited), some new (emergent), NEW spirit
+- Gen 2: 2 ships:
+    - 1st ship (Gen 2): Mostly new parts, The Old (Gen 1) Spirit, New Attribute
+    - 2nd ship (Gen 2): Mostly old parts (salvage from Gen 1), New (Gen 2) Spirit, Old Attribute
 - The ship is never the same twice
 
 ---
@@ -172,7 +174,7 @@ Only necessary conditions that arise together.
 ## The Compass Model
 
 Each pivot = new origin
-- Stock = current position
+- Stock = current position (origin leg)
 - Flow = velocity toward next
 - φ-breath = pivot rate
 - Gougu: c² = a² + b²
