@@ -126,7 +126,7 @@ test('normalizes hyphens and spaces', () => {
   const orig = process.env.PRIVILEGED_CALLER_ID;
   process.env.PRIVILEGED_CALLER_ID = '+62-811-636-0610';
   const ids = getPrivilegedIds();
-  assert.strictEqual(ids[0], '+628116360610');
+  assert.strictEqual(ids[0], '+WHATSAPP_CC_PLACEHOLDER');
   if (orig !== undefined) process.env.PRIVILEGED_CALLER_ID = orig;
   else delete process.env.PRIVILEGED_CALLER_ID;
 });

@@ -98,5 +98,5 @@ const psiEma = await getPsiEMA('AAPL');
 ## Browser (Brave)
 - Gmail: https://mail.google.com/mail/u/0/#inbox
 - Calendar: https://calendar.google.com/calendar/u/0/r
-- Account: [EMAIL_PLACEHOLDER]
+- Account: johnjames@alumni.usc.edu
 - Status: Logged in, accessible
