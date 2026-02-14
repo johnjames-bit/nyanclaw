@@ -274,3 +274,22 @@ const result = getContext("your query here");
 - Before: ~374,000 tokens
 - After: ~673-2,000 tokens
 - Savings: 99%+
+
+---
+
+## 🔐 Security Fundamental: No Secrets in Git
+
+**Rule**: Never commit secrets to git. All sensitive config must use env vars.
+
+| Secret Type | Env Var | Config File |
+|-------------|---------|-------------|
+| Discord Bot Token | `DISCORD_BOT_TOKEN` | Use placeholder |
+| WhatsApp CC Number | `WHATSAPP_CC_NUMBER` | env-driven only |
+| API Keys | `*_API_KEY` | Never commit |
+
+**Before push**:
+- [ ] Run `sed` to replace tokens with `PLACEHOLDER`
+- [ ] Verify no `+62`, `Gqfq0A`, `sk-` patterns in diff
+- [ ] Use `.gitignore` for local overrides
+
+**This is non-negotiable.** 🔱
