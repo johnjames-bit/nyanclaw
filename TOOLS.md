@@ -39,14 +39,14 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ## Model Stack
 
-### Local-First = Substrate Defense (φ-ontology)
+### Cloud-First, Local Substrate (φ-ontology)
 
 **Philosophy:**
 - **Cloud (φ¹)** = primary — fast, smart, always tried first
 - **Local (00)** = substrate — last defense, only when cloud fails/refuses
 
 ```
-Cloud (MiniMax) → [fails] → Local (Ollama) → [fails] → Error
+Cloud (MiniMax) → [fails] → Cloud (Groq/Claude) → [fails] → Local (Ollama) → [fails] → Error
 ```
 
 "The sky runs first. The ground holds when the sky falls."
@@ -54,21 +54,31 @@ Cloud (MiniMax) → [fails] → Local (Ollama) → [fails] → Error
 | Model | Role | Context |
 |-------|------|---------|
 | MiniMax-M2.5 | Primary (φ¹) | 200k |
-| Qwen2.5 Coder 7B | Substrate (00) | 128k |
-| ClawRouter | Router | auto-select |
+| Groq | Cloud fallback (φ¹) — fast inference | 128k |
+| Claude | Cloud fallback (φ¹) | 200k |
+| Qwen2.5 Coder 7B | Substrate (00) — local last resort | 128k |
+
+### Dynamic Chain
+
+Built at startup from detected providers. Priority order:
+1. MiniMax — if MINIMAX_API_KEY set (primary)
+2. Groq — if GROQ_API_KEY set
+3. Claude — if ANTHROPIC_API_KEY set
+4. OpenAI — if OPENAI_API_KEY set
+5. Ollama (local) — substrate, always last if running
 
 ### Manual Override
 
 - `/model qwen` → force local
-- `/model minimax` → force cloud
-- `/model auto` → smart routing (default)
+- `/model minimax` → force cloud (MiniMax)
+- `/model auto` → smart routing (default, dynamic chain)
 
 ---
 
 ## Nyan API Fallback Strategy
 
-**Endpoint:** https://nyanbook.io/api/v1/nyan  
-**Token:** Stored in `lib/nyan-api.js`
+**Endpoint:** https://nyanbook.io/api/v1/nyan
+**Token:** NYAN_API_TOKEN (env secret)
 
 ### Query Priority:
 
