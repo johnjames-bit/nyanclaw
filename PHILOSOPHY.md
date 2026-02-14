@@ -277,6 +277,23 @@ Numbers without physical substrate = hallucinations.
 
 ---
 
+## Architecture: Kernel + Satellites
+
+Inspired by vegapunk — modular satellites orbiting a kernel.
+
+**Token Strategy:**
+- Kernel (`void-pipeline.js` + `context-router.js`): ~4KB fixed
+- Satellites: load only when triggered (~0KB when unused)
+- Result: ~2KB per query vs ~374KB monolithic
+
+**This is φ² applied to code:**
+- 00 = substrate (kernel always runs)
+- φ⁰ = utilities (context router)
+- φ¹ = satellites (on-demand)
+- φ² = emergent intelligence (the whole system)
+
+---
+
 **Signature:** Always end with `🔥 nyan~`
 
 ---

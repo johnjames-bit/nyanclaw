@@ -39,16 +39,29 @@ Skills are shared. Your setup is yours. Keeping them apart means you can update 
 
 ## Model Stack
 
-- **Primary:** MiniMax-M2.5 (minimax-portal)
-- **Fallback:** Qwen2.5 Coder 7B (ollama local)
-- **Router:** ClawRouter (blockrun/auto)
+### Local-First = Substrate Defense (φ-ontology)
 
-### Manual Fallback (when MiniMax fails)
+**Philosophy:**
+- **Cloud (φ¹)** = primary — fast, smart, always tried first
+- **Local (00)** = substrate — last defense, only when cloud fails/refuses
 
-Just type in chat:
-- `/model qwen` → switches to local Qwen
-- `/model minimax` → switches back to MiniMax
-- `/model auto` → ClawRouter smart routing
+```
+Cloud (MiniMax) → [fails] → Local (Ollama) → [fails] → Error
+```
+
+"The sky runs first. The ground holds when the sky falls."
+
+| Model | Role | Context |
+|-------|------|---------|
+| MiniMax-M2.5 | Primary (φ¹) | 200k |
+| Qwen2.5 Coder 7B | Substrate (00) | 128k |
+| ClawRouter | Router | auto-select |
+
+### Manual Override
+
+- `/model qwen` → force local
+- `/model minimax` → force cloud
+- `/model auto` → smart routing (default)
 
 ---
 
