@@ -1,0 +1,92 @@
+{
+  "version": 1,
+  "jobs": [
+    {
+      "id": "a9a4ba80-3f73-4a7d-a582-95e9eceb2a7f",
+      "agentId": "main",
+      "name": "group-heartbeat",
+      "enabled": true,
+      "createdAtMs": 1771039302287,
+      "updatedAtMs": 1771115096339,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 3600000,
+        "anchorMs": 1771089097343
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Check #Philosophy group (120363425915475884@g.us) for new messages from allowlist (+SCRIBE_3_PLACEHOLDER, +628116360610, +62811630409, +19095888622). Read group session history. For any NEW messages (compare timestamps), write them to /Users/enoch/.openclaw/workspace/memory/group-queue.json with: {timestamp, from, text, isCommand}. If new messages exist, reply ANNOUCE: {count} new message(s) queued. If none, reply HEARTBEAT_OK.",
+        "model": "minimax-m2.5"
+      },
+      "delivery": {
+        "mode": "announce"
+      },
+      "state": {
+        "nextRunAtMs": 1771121497343,
+        "lastRunAtMs": 1771114376721,
+        "lastStatus": "error",
+        "lastDurationMs": 719618,
+        "consecutiveErrors": 3,
+        "runningAtMs": 1771117897350
+      }
+    },
+    {
+      "id": "2aa1ab24-26b8-4a7a-bd5f-289449d08e5b",
+      "agentId": "main",
+      "name": "discord-general-poll",
+      "enabled": true,
+      "createdAtMs": 1771090519630,
+      "updatedAtMs": 1771116073403,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 3600000,
+        "anchorMs": 1771090519630
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Read last 5 messages from Discord channel 1472263543167521055 (#general). If there are NEW messages from user 372143308148965386 (ad1001or120/Zeno Wukong) since last check, reply with the content and respond appropriately. Otherwise reply HEARTBEAT_OK.",
+        "model": "minimax-m2.5"
+      },
+      "delivery": {
+        "mode": "announce"
+      },
+      "state": {
+        "nextRunAtMs": 1771119319630,
+        "lastRunAtMs": 1771116044506,
+        "lastStatus": "ok",
+        "lastDurationMs": 28897,
+        "consecutiveErrors": 0
+      }
+    },
+    {
+      "id": "8f6f68d1-ec99-4e2f-ad4a-f6b0c6e24d40",
+      "agentId": "main",
+      "name": "healthcheck-autoheal",
+      "enabled": true,
+      "createdAtMs": 1771117538705,
+      "updatedAtMs": 1771117548694,
+      "schedule": {
+        "kind": "every",
+        "everyMs": 1800000,
+        "anchorMs": 1771117538705
+      },
+      "sessionTarget": "isolated",
+      "wakeMode": "now",
+      "payload": {
+        "kind": "agentTurn",
+        "message": "Run health check: Execute `openclaw channels status` and parse output. If WhatsApp shows 'disconnected' or 'error', execute `openclaw gateway restart` and reply 'WA_DOWN: restarted'. If Discord shows 'stopped' or 'error', execute `openclaw gateway restart` and reply 'DISCORD_DOWN: restarted'. If both OK, reply 'HEALTHY_OK'.",
+        "model": "minimax-m2.5"
+      },
+      "delivery": {
+        "mode": "announce"
+      },
+      "state": {
+        "nextRunAtMs": 1771119338705
+      }
+    }
+  ]
+}
