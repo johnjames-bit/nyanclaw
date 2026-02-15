@@ -17,7 +17,7 @@
       "wakeMode": "now",
       "payload": {
         "kind": "agentTurn",
-        "message": "Check #Philosophy group (120363425915475884@g.us) for new messages from allowlist (+SCRIBE_3_PLACEHOLDER, +628116360610, +62811630409, +19095888622). Read group session history. For any NEW messages (compare timestamps), write them to /Users/enoch/.openclaw/workspace/memory/group-queue.json with: {timestamp, from, text, isCommand}. If new messages exist, reply ANNOUCE: {count} new message(s) queued. If none, reply HEARTBEAT_OK.",
+        "message": "Check #Philosophy group (120363425915475884@g.us) for new messages from allowlist (+19704439545, +628116360610, +62811630409, +19095888622). Read group session history. For any NEW messages (compare timestamps), write them to /Users/enoch/.openclaw/workspace/memory/group-queue.json with: {timestamp, from, text, isCommand}. If new messages exist, reply ANNOUCE: {count} new message(s) queued. If none, reply HEARTBEAT_OK.",
         "model": "minimax-m2.5"
       },
       "delivery": {
