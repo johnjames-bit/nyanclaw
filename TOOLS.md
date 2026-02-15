@@ -100,3 +100,11 @@ const psiEma = await getPsiEMA('AAPL');
 - Calendar: https://calendar.google.com/calendar/u/0/r
 - Account: johnjames@alumni.usc.edu
 - Status: Logged in, accessible
+
+## Search & Real-Time Data
+
+**NYAN API** handles search/real-time queries — no separate Brave key needed.
+
+- **web_search** → Uses NYAN API as fallback
+- **Real-time queries** → Prices, weather, current events via `atomicQuery()`
+- **Browser** → Only when UI interaction needed (forms, clicking, etc.)
